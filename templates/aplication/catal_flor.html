@@ -1,0 +1,42 @@
+{% extends 'index.html' %}
+{% load static %}
+{% block body %}
+{% if flor %}
+<div class="card">
+	<div class="card-header">
+		<strong class="card-title">Catálogo de flores</strong>
+	</div>
+	<div class="card-body">
+		<h3 class="yummy2Jz9r" data-hook="wixrest-menus-sub-category-title" id="title1">Flores</h3>
+		{% for flor in flor %}
+		<div class="container text-center">__________________________________________________________________________________________________________________________________________________________</div>
+		<div>
+			<div class="text-center">
+				<img src="{{ flor.img.url }}" width="500" height="300">
+			</div>
+			<section class="text-center">
+					<strong class="card-title">Nombre:</strong>
+					<div id="name">{{ flor.name }}</div>
+					<div>______________________________________</div>
+					<strong class="card-title">Descripción:</strong>
+					<div>{{ flor.desc }}</div>
+					<div>______________________________________</div>
+					<strong class="card-title">Precio:</strong>
+					<div>${{ flor.cost }}</div>
+					<div>______________________________________</div>
+					<strong class="card-title">Cantidad disponible:</strong>
+					<div>{{ flor.stock }}</div>
+			</section>
+			<a href="{% url 'detalle_flor' flor.id %}" class="btn btn-success">Pedir</a>
+			{% endfor %}
+		</div>
+	</div>
+</div>
+{% else %}
+<h3>No existen productos registrados</h3>
+{% endif %}
+<div class="modal fade" id="creacion" role="dialog">
+</div>
+<div class="modal fade" id="edicion" role="dialog">
+</div>
+{% endblock body %}

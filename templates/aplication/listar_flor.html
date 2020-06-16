@@ -1,0 +1,54 @@
+{% extends 'index.html' %}
+{% load static %}
+{% block body %}
+<div>
+  <button class="btn btn-primary" type="button" onclick="abrir_modal_creacion('{% url 'crear_flor' %}')">Agregar</button>
+</div>
+{% if flor %}
+<div class="card">
+  <div class="card-header">
+    <strong class="card-title">Listado de flores</strong>
+  </div>
+  <div class="table-stats order-table ov-h">
+  	<table class="table">
+    <thead>
+      <tr>
+        <td class="text-center">ID</td>
+        <td class="text-center">Nombre</td>
+        <td class="text-center">Descripción</td>
+        <td class="text-center">Tipos</td>
+        <td class="text-center">Costo</td>
+        <td class="text-center">Cantidad</td>
+        <td class="text-center">Imagen</td>
+        <td class="text-center">Opciones</td>
+      </tr>
+    </thead>
+    <tbody>
+      {% for flor in flor %}
+      <tr>
+        <td class="text-center">{{ flor.id }}</td>
+        <td class="text-center">{{ flor.name }}</td>
+        <td class="text-center">{{ flor.desc }}</td>
+        <td class="text-center">{{ flor.types }}</td>
+        <td class="text-center">${{ flor.cost }}</td>
+        <td class="text-center">{{ flor.stock }}</td>
+        <td class="text-center"><img src="{{ flor.img.url }}"  alt="{{flor.name}}"></td>
+        <td class="text-center">
+        	<button onclick="abrir_modal_edicion('{% url 'editar_flor' flor.id %}')" class="btn btn-primary">Editar</button>
+        	<a href="{% url 'eliminar_flor' flor.id %}" class="btn btn-danger">Eliminar</a>
+          </td>
+        <!--<td>{{ flor.cliente.name }}</td>-->
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+  </div>
+</div>
+{% else %}
+<h3>No existen productos registrados</h3>
+{% endif %}
+<div class="modal fade" id="creacion" role="dialog">
+</div>
+<div class="modal fade" id="edicion" role="dialog">
+</div>
+{% endblock body %}
